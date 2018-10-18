@@ -1,10 +1,10 @@
 {
-  "name": "tvguidedk",
+  "name": "web_scraper",
   "version": "1.0.0",
   "description": "",
-  "main": "scrape.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node scrape.js",
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
