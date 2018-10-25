@@ -8,6 +8,7 @@
 
 // Host config
 //const port = process.env.PORT || 8080; // EvenNote host port from env; 8080 local
+const serverPath = process.env.OPENSHIFT_DATA_DIR; // local host "./"
 
 //const http      = require('http');
 const tvguide   = require('./tvguide.write');
@@ -17,19 +18,19 @@ const mariendal = require('./mariendal.write');
 const hour = 60*60*1000;
 
 // Immediately write a set of files...
-tvguide.writeRSS('tvguide.rss');
-mariendal.writeRSS('mariendal.rss');
+tvguide.writeRSS(serverPath + 'tvguide.rss');
+mariendal.writeRSS(serverPath + 'mariendal.rss');
 
 // ... then continue doing so forever, timed
-setInterval(_tvguide,  1/4*hour); // Every 15 minutes
-setInterval(_mariendal, 24*hour); // Once a day
+setInterval(_tvguide,  0.02*hour); // Every 15 minutes
+setInterval(_mariendal, 0.05*hour); // Once a day
 
 function _tvguide() {
-    tvguide.writeRSS('tvguide.rss');
+    void tvguide.writeRSS(serverPath + 'tvguide.rss');
 }
 
 function _mariendal() {
-    mariendal.writeRSS('mariendal.rss');
+    void mariendal.writeRSS(serverPath + 'mariendal.rss');
 }
 
 /* var server = http.createServer();

@@ -62,6 +62,7 @@ function writeRSS(rssFileName) {
             (rssItems === "" ? (rss.itemEmpty()).replace("RSS_LINK", rssLink) : rssItems));
 
         rssFeed = rssCopy;
+
         fs.writeFile(rssFileName, rssFeed, (err) => {
             if (err) throw err;
         });
