@@ -5,9 +5,10 @@
  *      <host>/mariendal
  * 
 */
+require('dotenv').config();
 
 // Host config
-const port = process.env.PORT || 8080; // EvenNote host port from env; 8080 local
+const port = process.env.LISTEN_PORT;
 
 const http      = require('http');
 const tvguide   = require('./tvguide');
@@ -16,8 +17,7 @@ const mariendal = require('./mariendal');
 var server = http.createServer();
 server.on('request',
     async (request, response) => {
-        //console.log('Request: '+request.url);
-        
+ 
         if (request.url === "/tvguide") {
             const rssFeed = await tvguide.getRSS(); // Wait for promise to resolve
             response.writeHead(200, {'Content-Type': 'application/rss+xml'});

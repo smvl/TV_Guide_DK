@@ -4,18 +4,22 @@ module.exports.writeRSS = writeRSS;
 * Grabs the current channel schedules from TVGuide.dk and selects what we want to see from a 
 * predeterminded list. Create RSS feed for use on e.g "my.yahoo.com" home page.
 */
-const Xray = require('x-ray');
-const rss = require('./rss_templates');
-const fs = require('fs');
+require('dotenv').config(); // Environment variables from "app_server.env"
 
-const channelSelection = "(DR1|DR2|DR3|DRK|DR Ultra)"; // Other channels available, see tvguide.dk
-const featureSelection = "(Guld |Clement|Price|Barnaby|Gently|Morse|Hercule|Hun s. et mord)";
-const rssTitle = "TVGuide.dk";
-const rssLink = "https://www.tvguide.dk";
-const rssDesc = "Danmarks største online tv-guide";
-const maxTitleLen = 60; // Title is to long for my.yahoo.com, so trim
-const earliestTime = "08:00"; // Not implemented
-const latestTime = "23:00"; // Not implemented
+const Xray  = require('x-ray');
+const rss   = require('./rss_templates');
+const fs    = require('fs');
+
+const tvguideUrl        = process.env.TV_GUIDE_LISTINGS;
+const channelSelection  = process.env.CHANNEL_SELECTION; // Other channels available, see tvguide.dk
+const featureSelection  = process.env.FEATURE_SELECTION;
+const earliestTime      = process.env.START_HOUR; // Time not implemented
+const latestTime        = process.env.STOP_HOUR; // Time not implemented
+
+const rssTitle      = "TVGuide.dk";
+const rssLink       = "https://www.tvguide.dk";
+const rssDesc       = "Danmarks største online tv-guide";
+const maxTitleLen   = 60; // Title is to long for my.yahoo.com, so trim
 
 function writeRSS(rssFileName) {
     // Contains rss
@@ -37,7 +41,7 @@ function writeRSS(rssFileName) {
     });
 
     // Scrape the data
-    x('https://www.tvguide.dk/', {
+    x(tvguideUrl, {
         channels: x('.schedule--99', [{
             name    : '.schedule-header-channel-name | trim',
 

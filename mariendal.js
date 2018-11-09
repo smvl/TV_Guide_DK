@@ -4,13 +4,16 @@ module.exports.getRSS = getRSS;
 * Grabs the current channel schedules from [MariendalKirke.dk] and scrape the current event
 * list. Create RSS feed for use on e.g "my.yahoo.com" home page.
 */
-const Xray = require('x-ray');
-const rss = require('./rss_templates');
+require('dotenv').config();
 
-const rssTitle = "Mariendal Kirke";
-const rssLink = "https://www.mariendalkirke.dk";
-const rssDesc = "Nitivej 17, 2000 Frederiksberg - Tlf.3810.7355";
-const maxTitleLen = 60; // Title is to long for my.yahoo.com, so trim
+const Xray  = require('x-ray');
+const rss   = require('./rss_templates');
+
+const rssTitle      = "Mariendal Kirke";
+const rssLink       = "https://www.mariendalkirke.dk";
+const rssDesc       = "Nitivej 17, 2000 Frederiksberg - Tlf.3810.7355";
+const eventsUrl     = process.env.MARIENDAL_EVENTS_DATA;
+const maxTitleLen   = 60; // Title is to long for my.yahoo.com, so trim
 
 function getRSS() {
     // Contains rss
@@ -30,7 +33,7 @@ function getRSS() {
             }
         });
 
-        x('https://www.mariendalkirke.dk/arrangementer', '#sidebar-second', // Right hand sidebar has events
+        x(eventsUrl, '#sidebar-second', // Right hand sidebar has events
             { 
                 page1: x('.page-1', // take page-1 only, that's 5 events
                     [{
