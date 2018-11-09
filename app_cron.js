@@ -6,22 +6,22 @@
  * 
 */
 require('dotenv').config();
-const tvguide   = path + process.env.TV_GUIDE_RSS;
-const mariendal = path + process.env.MARIENDAL_RSS;
+const tvguiderss   = path + process.env.TV_GUIDE_RSS;
+const mariendalrss = path + process.env.MARIENDAL_RSS;
 
 arg = process.argv[2] ? process.argv[2] : "";
 
 switch (arg.toLower()) {
     case "tvguide":
         var tvguide = require('./tvguide.files');
-        void tvguide.writeRSS(tvguide);
+        void tvguide.writeRSS(tvguiderss);
         break;
     case "mariendal":
         const mariendal = require('./mariendal.files');
-        void mariendal.writeRSS(mariendal);
+        void mariendal.writeRSS(mariendalrss);
         break;
     default:
         var tvguide = require('./tvguide.files');
-        void tvguide.writeRSS(tvguide);
+        void tvguide.writeRSS(tvguiderss);
         break;
 }
