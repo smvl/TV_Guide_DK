@@ -4,7 +4,7 @@ module.exports.getRSS = getRSS;
 * Grabs the current channel schedules from TVGuide.dk and selects what we want to see from a 
 * predeterminded list. Create RSS feed for use on e.g "my.yahoo.com" home page.
 */
-require('dotenv').config();
+require('dotenv').config({ path: "./app.env" });
 
 const Xray = require('x-ray');
 const rss = require('./rss_templates');

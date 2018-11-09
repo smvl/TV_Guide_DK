@@ -5,7 +5,7 @@
  *      <host>/mariendal
  * 
 */
-require('dotenv').config();
+require('dotenv').config({ path: "./app.env" });
 
 // Host config
 const port = process.env.LISTEN_PORT;
